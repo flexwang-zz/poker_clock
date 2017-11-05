@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+   <head>
+     <link rel="stylesheet" type="text/css" href="./css/clock.css">
+     <script src="./js/clock.js"></script>
+   </head>
+   <body onload="onload()">
+      <img id="logo" src="./resources/logo.png">
+      <div id="clock">
+        <div id="top">
+          <div>
+            <span lang="en">MTT</span>锦标赛<span lang="en">&11.11</span>专场<br/>
+            ——求是精英德扑第<span lang="en">7</span>期
+            </div>
+        </div>
+        <div id="middle">
+          <div id="left">
+            <div id="ave_chip">
+              <div class="margin_title">
+                平均筹码
+              </div>
+              <div class="margin_content" id="div_ave_chip">
+              </div>
+            </div>
+            <div id="cur_level">
+              <div class="margin_title">
+                当前级别
+              </div>
+              <div class="margin_content" id="div_cur_level">
+              </div>
+            </div>
+          </div>
+          <div id="center">
+            <div id="wrapper">
+              <div style="position: absolute; left: 50%;">
+                <div id="div_pause" style="position: relative; left: -50%;">
+                  暂停
+                </div>
+              </div>
+              <div id="div_time"></div>  
+              <div id="blind" class="tab">
+                <div class="tab_header">盲注<br/>BLINDS</div>
+                <div class="tab_content" id="div_cur_blind"></div>
+              </div>
+              <div id="anti" class="tab">
+                <div class="tab_header">前注<br/>ANTI</div>
+                <div class="tab_content" id="div_cur_anti"></div>                
+              </div>          
+            </div>
+          </div>
+          <div id="right">
+          <div id="remain">
+              <div class="margin_title">
+                剩余人数
+              </div>
+              <div class="margin_content" id="div_remain_cnt">
+              </div>
+            </div>
+            <div id="prize_player">
+              <div class="margin_title">
+                奖励人数
+              </div>
+              <div class="margin_content" id="div_prize_cnt">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="footer">
+          <div id="next_level">
+            <div class="title" id="next_level_title">
+              下一级别
+            </div>
+            <div class="content" id="div_next_level">
+            </div>
+          </div>
+        </div>
+      </div>
+   </body>
+</html>
