@@ -156,6 +156,9 @@ function doPlus() {
 function doMinus() {
 	if (remainCnt > 0) {
 		remainCnt --;
+		if (remainCnt == 1) {
+			new Audio('./resources/applause.wav').play();
+		}
 	}
 }
 
