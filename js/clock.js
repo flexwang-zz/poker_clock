@@ -1,36 +1,36 @@
-Level = function(bb, sb, anti, dur) {
+Level = function(bb, sb, anti, dur, remain) {
 	this.bb = bb;
 	this.sb = sb;
 	this.anti = anti;
 	this.dur = time_to_seconds(dur);
-	this.remain = this.dur;
+	this.remain = remain?time_to_seconds(remain):this.dur;
 }
 
 const startLevel = 0;
 
 const levels = [
-	new Level(100, 50, 0, '30:0'),
-	new Level(200, 100, 0, '30:0'),
+	new Level(100, 50, 0, '45:0'),
+	new Level(200, 100, 0, '45:0'),
 	new Level(300, 150, 0, '30:0'),
 	new Level(400, 200, 0, '30:0'),
 	new Level(400, 200, 50, '30:0'),
 	new Level(600, 300, 100, '30:0'),
-	new Level(1000, 500, 100, '30:0'),
-	new Level(1400, 700, 200, '30:0'),
-	new Level(2000, 1000, 300, '30:0'),
-	new Level(3000, 1500, 400, '30:0'),
-	new Level(6000, 3000, 800, '30:0'),
-	new Level(8000, 4000, 1000, '30:0'),
-	new Level(14000, 7000, 2000, '30:0'),
+	new Level(800, 400, 100, '30:0'),
+	new Level(1200, 600, 150, '30:0'),
+	new Level(2000, 1000, 200, '30:0'),
+	new Level(3000, 1500, 300, '30:0'),
+	new Level(4000, 2000, 500, '30:0'),
+	new Level(6000, 3000, 700, '30:0'),
+	new Level(10000, 5000, 1000, '30:0'),
+	new Level(16000, 8000, 2000, '30:0'),
 	new Level(20000, 10000, 3000, '30:0'),
-	new Level(30000, 15000, 4000, '30:0'),
 	new Level(40000, 20000, 5000, '30:0'),
 ];
 
 const buyIn = 10000;
 const prizeCnt = 5;
 
-var playerCnt = 19;
+var playerCnt = 3;
 var rebuyCnt = 0;
 var remainCnt = playerCnt;
 var paused = false;
@@ -120,16 +120,16 @@ function onKeyPress(e) {
 	// Prevents page from scrolling when pressing SPACE.
 	e.preventDefault();
 	var key = e.keyCode;
-	const plus = 43; 		// shift+plus
-	const minus = 95; 		// shift+minus
-	const pause = 32;		// space
-	const speedUp = 87; 	// shift+w;
-	const speedDown = 83; 	// shift+s;
-	const reBuy = 82; 		// shift+r;
+	const plus = [43 /* shift+plus */]; 		
+	const minus = [95 /*shift+minus */];
+	const pause = [32 /* space */];
+	const speedUp = [87 /* shift+w */];
+	const speedDown = [83 /* shift+s */];
+	const reBuy = [82 /* shift+r */];
 
 	if (key == pause) {
 		doPause();
-	} else if (key == plus) {
+	} else if (plus.includes(key)) {
 		doPlus();
 	} else if (key == minus) {
 		doMinus();
@@ -138,9 +138,17 @@ function onKeyPress(e) {
 	} else if (key == speedDown) {
 		levels[levelIndex].remain = levels[levelIndex].remain+60;
 	} else if (key == reBuy) {
-		rebuyCnt ++;
+		doRebuy();
 	} else {
 		console.log('key ' + key + ' pressed');
+	}
+	redraw();
+}
+
+function doRebuy() {
+	if (remainCnt < playerCnt) {
+		rebuyCnt ++;
+		remainCnt ++;
 	}
 }
 
@@ -185,6 +193,8 @@ function getHeight() {
 function setupStyles() {
 	var width = getWidth();
 	var height = getHeight();
+
+	console.log('screen resolution:' + width + 'x' + height + ' ratio:' + width/height);
 
 	timeDiv.style.fontSize = height * 0.22 + 'px';
 	nextLevelDiv.style.fontSize = height * 0.05 + 'px';
