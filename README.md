@@ -7,7 +7,7 @@
  - <kbd>shift</kbd> + <kbd>-</kbd> :     一名玩家被淘汰
  - <kbd>shift</kbd> + <kbd>w</kbd> :   当前级别剩余时间减少一分钟
  - <kbd>shift</kbd> + <kbd>s</kbd> :    当前级别剩余时间增加一分钟
- - <kbd>shift</kbd> + <kbd>r</kbd> :   一名玩家被淘汰后rebuy，此时总游戏人数不变，只影响平均筹码
+ - <kbd>shift</kbd> + <kbd>r</kbd> :   一名玩家被淘汰后rebuy，此时总游戏人数不变，剩余玩家人数加一，平均筹码量会做相应改变
 
 ### 所有权
 本项目归浙江大学上海校友会所有
