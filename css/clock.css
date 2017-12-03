@@ -153,8 +153,66 @@
 	width: 30%;
 }
 
+#setting > #button_wrapper {
+	position: absolute;
+	margin: auto;
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	top: 0;
+	bottom: 0;
+	right: 0;
+}
+
+#button_wrapper > #btn_pause {
+	background: url(../resources/img/pause.png);
+	background-size: 100%;
+	background-repeat: no-repeat;
+}
+
+#button_wrapper > #btn_plus {
+	background: url(../resources/img/plus.png);
+	background-size: 100%;
+	background-repeat: no-repeat;
+}
+
+#button_wrapper > #btn_minus {
+	background: url(../resources/img/minus.png);
+	background-size: 100%;
+	background-repeat: no-repeat;
+}
+
+#button_wrapper > #btn_rebuy {
+	background: url(../resources/img/rebuy.png);
+	background-size: 100%;
+	background-repeat: no-repeat;
+}
+
+#button_wrapper > #btn_speed_up {
+	background: url(../resources/img/speedUp.png);
+	background-size: 100%;
+	background-repeat: no-repeat;
+}
+
+#button_wrapper > #btn_speed_down {
+	background: url(../resources/img/speedDown.png);
+	background-size: 100%;
+	background-repeat: no-repeat;
+}
+
 .margin_content {
 	margin-top: 4%;
+}
+
+.setting_button {
+	border: none;
+	outline: none;
+	cursor: pointer;
+	visibility: hidden;
+}
+
+.setting_button:active {
+	transform: translateY(3px);
 }
 
 html, body {
@@ -163,6 +221,6 @@ html, body {
 }
 
 html {
-	background-image: url(../resources/background.jpg);
+	background-image: url(../resources/img/background.jpg);
 	background-size:cover
 }

@@ -47,7 +47,7 @@ function time_elapse() {
   if (levels[levelIndex].remain != 0) {
     levels[levelIndex].remain--;
     if (levels[levelIndex].remain == 10) {
-      new Audio('./resources/10_sec_countdown.mp3').play();
+      new Audio('./resources/sound/10_sec_countdown.mp3').play();
     }
     return;
   }
@@ -79,7 +79,7 @@ function onload() {
   initDivs();
   setupStyles();
   redraw();
-  new Audio('./resources/play_poker.mp3').play();
+  new Audio('./resources/sound/play_poker.mp3').play();
   setInterval(refresh_every_second, 1000);
 }
 
@@ -94,6 +94,33 @@ function initDivs() {
   aveChipDiv = document.getElementById('div_ave_chip');
   nextLevelDiv = document.getElementById('div_next_level');
   pauseDiv = document.getElementById('div_pause');
+
+  buttons['pause'] = document.getElementById('btn_pause');
+  buttons['plus'] = document.getElementById('btn_plus');
+  buttons['minus'] = document.getElementById('btn_minus');
+  buttons['rebuy'] = document.getElementById('btn_rebuy');
+  buttons['speed_up'] = document.getElementById('btn_speed_up');
+  buttons['speed_down'] = document.getElementById('btn_speed_down');
+
+  buttons['pause'].onclick = doPause;
+  buttons['plus'].onclick = doPlus;
+  buttons['minus'].onclick = doMinus;
+  buttons['rebuy'].onclick = doRebuy;
+  buttons['speed_up'].onclick = doSpeedUp;
+  buttons['speed_down'].onclick = doSpeedDown;
+
+  buttonWrapperDiv = document.getElementById('button_wrapper');
+  buttonWrapperDiv.addEventListener('mouseenter', function (e) {
+    for (var key in buttons) {
+      buttons[key].style.visibility = 'visible';
+    }
+  });
+
+  buttonWrapperDiv.addEventListener('mouseleave', function (e) {
+    for (var key in buttons) {
+      buttons[key].style.visibility = 'hidden';
+    }
+  });
 }
 
 function redraw() {
@@ -135,15 +162,23 @@ function onKeyPress(e) {
   } else if (minus.includes(key)) {
     doMinus();
   } else if (speedUp.includes(key)) {
-    levels[levelIndex].remain = Math.max(0, levels[levelIndex].remain - 60);
+    doSpeedUp();
   } else if (speedDown.includes(key)) {
-    levels[levelIndex].remain = levels[levelIndex].remain + 60;
+    doSpeedDown();
   } else if (reBuy.includes(key)) {
     doRebuy();
   } else {
     console.log('key ' + key + ' pressed');
   }
   redraw();
+}
+
+function doSpeedUp() {
+  levels[levelIndex].remain = Math.max(0, levels[levelIndex].remain - 60);
+}
+
+function doSpeedDown() {
+  levels[levelIndex].remain = levels[levelIndex].remain + 60;
 }
 
 function doRebuy() {
@@ -155,6 +190,8 @@ function doRebuy() {
 
 function doPause() {
   paused = !paused;
+  buttons['pause'].style.background = paused ? 'url(resources/img/resume.png)' : 'url(resources/img/pause.png)';
+  buttons['pause'].style.backgroundSize = '100%';
 }
 
 function doPlus() {
@@ -166,7 +203,7 @@ function doMinus() {
   if (remainCnt > 1) {
     remainCnt--;
     if (remainCnt == 1) {
-      new Audio('./resources/applause.wav').play();
+      new Audio('./resources/sound/applause.wav').play();
     }
   }
 }
@@ -201,6 +238,17 @@ function setupStyles() {
   document.getElementById('top').style.fontSize = height * 0.055 + 'px';
   document.getElementById('next_level_title').style.fontSize =
       height * 0.05 + 'px';
+
+  var buttonSize = height * 0.05 + 'px';
+  var buttonMargin = height * 0.03 + 'px';
+  for (var key in buttons) {
+    var button = buttons[key];
+    button.style.width = buttonSize;
+    button.style.height = buttonSize;
+    button.style.marginTop = buttonMargin;
+    button.style.marginRight = buttonMargin;
+  }
+  buttonWrapperDiv.style.marginTop = height * 0.26 + 'px';
 }
 
 function setupFontSizeForClass(className, fontSize) {
@@ -222,6 +270,8 @@ var nextLevelDiv;
 var pauseDiv;
 // Deprecated
 var playerCntDiv;
+var buttons = {};
+var buttonWrapperDiv;
 
 var levelIndex = startLevel;
 
