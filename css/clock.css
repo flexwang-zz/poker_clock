@@ -211,8 +211,11 @@
 	visibility: hidden;
 }
 
-.setting_button:active {
-	transform: translateY(3.5px);
+.setting_button:hover:enabled{
+    transform: scale(1.23);
+}
+.setting_button:active:enabled{
+    transform: translateY(3.5px);
 }
 
 html, body {
