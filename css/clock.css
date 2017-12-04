@@ -212,7 +212,7 @@
 }
 
 .setting_button:active {
-	transform: translateY(3px);
+	transform: translateY(3.5px);
 }
 
 html, body {

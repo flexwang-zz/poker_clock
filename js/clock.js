@@ -110,17 +110,27 @@ function initDivs() {
   buttons['speed_down'].onclick = doSpeedDown;
 
   buttonWrapperDiv = document.getElementById('button_wrapper');
-  buttonWrapperDiv.addEventListener('mouseenter', function (e) {
-    for (var key in buttons) {
-      buttons[key].style.visibility = 'visible';
+  buttonWrapperDiv.onmouseenter = showButtons;
+  buttonWrapperDiv.onclick = showButtons;
+  buttonWrapperDiv.onmouseleave = hideButtons;
+  document.onclick = function(e) {
+    console.log(e.target.className);
+    if (e.target.className != 'setting_button' && e.target != buttonWrapperDiv) {
+      hideButtons();
     }
-  });
+  };
+}
 
-  buttonWrapperDiv.addEventListener('mouseleave', function (e) {
-    for (var key in buttons) {
-      buttons[key].style.visibility = 'hidden';
-    }
-  });
+function showButtons() {
+  for (var key in buttons) {
+    buttons[key].style.visibility = 'visible';
+  }
+}
+
+function hideButtons() {
+  for (var key in buttons) {
+    buttons[key].style.visibility = 'hidden';
+  }
 }
 
 function redraw() {
