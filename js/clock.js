@@ -111,11 +111,13 @@ function initDivs() {
 
   buttonWrapperDiv = document.getElementById('button_wrapper');
   buttonWrapperDiv.onmouseenter = showButtons;
-  buttonWrapperDiv.onclick = showButtons;
   buttonWrapperDiv.onmouseleave = hideButtons;
+
+  // Workaround for touchable devices.
+  buttonWrapperDiv.onclick = showButtons;
   document.onclick = function(e) {
     console.log(e.target.className);
-    if (e.target.className != 'setting_button' && e.target != buttonWrapperDiv) {
+    if (e.target.className != 'setting_button' && e.target != button_wrapper) {
       hideButtons();
     }
   };
