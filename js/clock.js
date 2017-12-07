@@ -29,9 +29,9 @@ const levels = [
 ];
 
 const buyIn = 10000;
-const prizeCnt = 5;
+const prizeCnt = 6;
 
-var playerCnt = 3;
+var playerCnt = 12;
 var rebuyCnt = 0;
 var remainCnt = playerCnt;
 var paused = false;
