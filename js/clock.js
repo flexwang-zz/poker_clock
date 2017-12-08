@@ -10,10 +10,10 @@ Level =
 const startLevel = 0;
 
 const levels = [
-  new Level(100, 50, 0, '45:0'),
-  new Level(200, 100, 0, '45:0'),
+  new Level(50, 50, 0, '45:0'),
+  new Level(100, 50, 0, '30:0'),
+  new Level(200, 100, 0, '30:0'),
   new Level(300, 150, 0, '30:0'),
-  new Level(400, 200, 0, '30:0'),
   new Level(400, 200, 50, '30:0'),
   new Level(600, 300, 100, '30:0'),
   new Level(800, 400, 100, '30:0'),
@@ -182,21 +182,23 @@ function onKeyPress(e) {
   } else {
     console.log('key ' + key + ' pressed');
   }
-  redraw();
 }
 
 function doSpeedUp() {
   levels[levelIndex].remain = Math.max(0, levels[levelIndex].remain - 60);
+  redraw()
 }
 
 function doSpeedDown() {
   levels[levelIndex].remain = levels[levelIndex].remain + 60;
+  redraw();
 }
 
 function doRebuy() {
   if (remainCnt < playerCnt) {
     rebuyCnt++;
     remainCnt++;
+    redraw();
   }
 }
 
@@ -209,6 +211,7 @@ function doPause() {
 function doPlus() {
   remainCnt++;
   playerCnt++;
+  redraw();
 }
 
 function doMinus() {
@@ -217,6 +220,7 @@ function doMinus() {
     if (remainCnt == 1) {
       new Audio('./resources/sound/applause.wav').play();
     }
+    redraw();
   }
 }
 
