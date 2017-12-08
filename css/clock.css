@@ -8,7 +8,7 @@
 	display: flex;
 	font-family: xingkai sc;
 	font-weight: bold;
-	margin-left: 40%;`
+	margin-left: 27.5%;
 	width: 100%;
 	height: 25%;
 }
@@ -36,7 +36,7 @@
 	flex-direction: column;
 	float: left;
 	font-size: 30px;
-	margin-left: 7%;
+	margin-left: 8%;
 	text-align: right;
 }
 
@@ -45,7 +45,7 @@
 	display: inline-flex;
 	flex-direction: column;
 	float: right;
-	margin-right: 7%;
+	margin-right: 8%;
 	text-align: left;
 }
 
@@ -56,12 +56,8 @@
 	width: 13%;
 }
 
-#center > * > #anti {
-	margin-top: 4%;
-}
-
 #center > * > #blind {
-	margin-top: 7.5%;
+	margin-top: 4%;
 }
 
 #prize_player, #cur_level {
@@ -90,12 +86,12 @@
 
 #clock > #middle > #center {
 	background-color: #FF4433;
-	border-radius: 10px;
+	border-radius: 15px;
 	color: #FBD2C3;
 	display: inline-flex;
 	height: 100%;
 	opacity: 0.9;
-	width: 60%;
+	width: 58%;
 }
 
 #clock > #middle > #center > #wrapper {
@@ -147,10 +143,10 @@
 
 #logo {
 	position: absolute;
-	top: 4.5%;
-	left: 3%;
-	height: 15%;
-	width: 30%;
+	top: 3%;
+	left: 2%;
+	height: 8%;
+	width: 16%;
 }
 
 #setting > #button_wrapper {
@@ -225,5 +221,5 @@ html, body {
 
 html {
 	background-image: url(../resources/img/background.jpg);
-	background-size:cover
+	background-size:100%;
 }

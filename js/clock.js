@@ -245,10 +245,10 @@ function setupStyles() {
   console.log(
       'screen resolution:' + width + 'x' + height + ' ratio:' + width / height);
 
-  timeDiv.style.fontSize = height * 0.22 + 'px';
+  timeDiv.style.fontSize = height * 0.26 + 'px';
   nextLevelDiv.style.fontSize = height * 0.05 + 'px';
 
-  setupFontSizeForClass('tab_content', height * 0.08);
+  setupFontSizeForClass('tab_content', height * 0.12);
   setupFontSizeForClass('margin_content', height * 0.04);
   setupFontSizeForClass('margin_title', height * 0.04);
   document.getElementById('top').style.fontSize = height * 0.055 + 'px';
