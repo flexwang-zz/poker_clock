@@ -8,7 +8,7 @@
 	display: flex;
 	font-family: xingkai sc;
 	font-weight: bold;
-	margin-left: 27.5%;
+	margin-left: 26%;
 	width: 100%;
 	height: 25%;
 }
@@ -127,6 +127,8 @@
 
 #next_level {
 	background-color: #000;
+	display: flex;
+	justify-content: space-between;
 	margin: 0 20% 0;
 	opacity: 0.66;
 	line-height: 1.8;
@@ -134,19 +136,21 @@
 
 #next_level > .title {
 	display: inline-flex;
+	margin-left: 6%;
 }
 
 #next_level > .content {
 	display: inline-flex;
-	float: right;
+	margin-right: 6%;
 }
 
 #logo {
 	position: absolute;
 	top: 3%;
 	left: 2%;
-	height: 8%;
-	width: 16%;
+	min-height: 8%;
+	width: auto;
+	height: auto;
 }
 
 #setting > #button_wrapper {
