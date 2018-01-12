@@ -16,22 +16,22 @@ const levels = [
   new Level(300, 150, 0, '30:0'),
   new Level(400, 200, 50, '30:0'),
   new Level(600, 300, 100, '30:0'),
-  new Level(800, 400, 100, '30:0'),
-  new Level(1200, 600, 150, '30:0'),
-  new Level(2000, 1000, 200, '30:0'),
-  new Level(3000, 1500, 300, '30:0'),
-  new Level(4000, 2000, 500, '30:0'),
-  new Level(6000, 3000, 700, '30:0'),
-  new Level(10000, 5000, 1000, '30:0'),
-  new Level(16000, 8000, 2000, '30:0'),
+  new Level(1000, 500, 100, '30:0'),
+  new Level(1400, 700, 200, '30:0'),
+  new Level(2000, 1000, 300, '30:0'),
+  new Level(3000, 1500, 400, '30:0'),
+  new Level(6000, 3000, 800, '30:0'),
+  new Level(8000, 4000, 1000, '30:0'),
+  new Level(14000, 7000, 2000, '30:0'),
   new Level(20000, 10000, 3000, '30:0'),
+  new Level(30000, 15000, 4000, '30:0'),
   new Level(40000, 20000, 5000, '30:0'),
 ];
 
 const buyIn = 10000;
-const prizeCnt = 6;
+const prizeCnt = 7;
 
-var playerCnt = 12;
+var playerCnt = 27;
 var rebuyCnt = 0;
 var remainCnt = playerCnt;
 var paused = false;
