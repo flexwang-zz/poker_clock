@@ -110,8 +110,8 @@ function initDivs() {
   buttons['speed_down'].onclick = doSpeedDown;
 
   buttonWrapperDiv = document.getElementById('button_wrapper');
-  buttonWrapperDiv.onmouseenter = showButtons;
-  buttonWrapperDiv.onmouseleave = hideButtons;
+  //buttonWrapperDiv.onmouseenter = showButtons;
+  //buttonWrapperDiv.onmouseleave = hideButtons;
 
   // Workaround for touchable devices.
   buttonWrapperDiv.onclick = showButtons;
