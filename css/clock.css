@@ -176,6 +176,12 @@
 	background-repeat: no-repeat;
 }
 
+#button_wrapper > #btn_undo {
+	background: url(../resources/img/undo.svg);
+	background-size: 100%;
+	background-repeat: no-repeat;
+}
+
 #button_wrapper > #btn_minus {
 	background: url(../resources/img/minus.png);
 	background-size: 100%;

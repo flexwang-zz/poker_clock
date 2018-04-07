@@ -28,6 +28,8 @@ const levels = [
   new Level(40000, 20000, 5000, '30:0'),
 ];
 
+const operations = [];
+
 const buyIn = 10000;
 const prizeCnt = 7;
 
@@ -96,23 +98,31 @@ function initDivs() {
   pauseDiv = document.getElementById('div_pause');
 
   buttons['pause'] = document.getElementById('btn_pause');
-  buttons['plus'] = document.getElementById('btn_plus');
-  buttons['minus'] = document.getElementById('btn_minus');
-  buttons['rebuy'] = document.getElementById('btn_rebuy');
-  buttons['speed_up'] = document.getElementById('btn_speed_up');
-  buttons['speed_down'] = document.getElementById('btn_speed_down');
-
   buttons['pause'].onclick = doPause;
-  buttons['plus'].onclick = doPlus;
+
+  //buttons['plus'] = document.getElementById('btn_plus');
+  //buttons['plus'].onclick = doPlus;
+
+  buttons['undo'] = document.getElementById('btn_undo');
+  buttons['undo'].onclick = doUndo;
+
+  buttons['minus'] = document.getElementById('btn_minus');
   buttons['minus'].onclick = doMinus;
+
+  buttons['rebuy'] = document.getElementById('btn_rebuy');
   buttons['rebuy'].onclick = doRebuy;
+
+  buttons['speed_up'] = document.getElementById('btn_speed_up');
   buttons['speed_up'].onclick = doSpeedUp;
+
+  buttons['speed_down'] = document.getElementById('btn_speed_down');
   buttons['speed_down'].onclick = doSpeedDown;
 
   buttonWrapperDiv = document.getElementById('button_wrapper');
-  //buttonWrapperDiv.onmouseenter = showButtons;
-  //buttonWrapperDiv.onmouseleave = hideButtons;
+  buttonWrapperDiv.onmouseenter = showButtons;
+  buttonWrapperDiv.onmouseleave = hideButtons;
 
+  /*
   // Workaround for touchable devices.
   buttonWrapperDiv.onclick = showButtons;
   document.onclick = function(e) {
@@ -121,6 +131,7 @@ function initDivs() {
       hideButtons();
     }
   };
+  */
 }
 
 function showButtons() {
@@ -166,6 +177,7 @@ function onKeyPress(e) {
   const speedUp = [87 /* shift+w */];
   const speedDown = [83 /* shift+s */];
   const reBuy = [82 /* shift+r */];
+  const undo = [90 /* shift+z */];
 
   if (pause.includes(key)) {
     doPause();
@@ -179,6 +191,8 @@ function onKeyPress(e) {
     doSpeedDown();
   } else if (reBuy.includes(key)) {
     doRebuy();
+  } else if (undo.includes(key)) {
+    doUndo();
   } else {
     console.log('key ' + key + ' pressed');
   }
@@ -186,7 +200,7 @@ function onKeyPress(e) {
 
 function doSpeedUp() {
   levels[levelIndex].remain = Math.max(0, levels[levelIndex].remain - 60);
-  redraw()
+  redraw();
 }
 
 function doSpeedDown() {
@@ -195,16 +209,17 @@ function doSpeedDown() {
 }
 
 function doRebuy() {
-  if (remainCnt < playerCnt) {
-    rebuyCnt++;
-    remainCnt++;
-    redraw();
-  }
+  if (remainCnt >= playerCnt) return;
+  rebuyCnt++;
+  remainCnt++;
+  redraw();
+  operations.push(doRebuy);
 }
 
 function doPause() {
   paused = !paused;
-  buttons['pause'].style.background = paused ? 'url(resources/img/resume.png)' : 'url(resources/img/pause.png)';
+  buttons['pause'].style.background =
+      paused ? 'url(resources/img/resume.png)' : 'url(resources/img/pause.png)';
   buttons['pause'].style.backgroundSize = '100%';
 }
 
@@ -212,16 +227,32 @@ function doPlus() {
   remainCnt++;
   playerCnt++;
   redraw();
+  operations.push(doPlus);
 }
 
 function doMinus() {
-  if (remainCnt > 1) {
-    remainCnt--;
-    if (remainCnt == 1) {
-      new Audio('./resources/sound/applause.wav').play();
-    }
-    redraw();
+  if (remainCnt <= 1) return;
+  remainCnt--;
+  if (remainCnt == 1) {
+    new Audio('./resources/sound/applause.wav').play();
   }
+  redraw();
+  operations.push(doMinus);
+}
+
+function doUndo() {
+  if (operations.length == 0) return;
+  var last = operations.pop();
+  if (last == doPlus) {
+    remainCnt --;
+    playerCnt --;
+  } else if (last == doMinus) {
+    remainCnt ++;
+  } else if (last == doRebuy) {
+    rebuyCnt--;
+    remainCnt--;
+  }
+  redraw();
 }
 
 function getWidth() {
