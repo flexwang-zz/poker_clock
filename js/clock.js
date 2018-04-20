@@ -10,11 +10,10 @@ Level =
 const startLevel = 0;
 
 const levels = [
-  new Level(50, 50, 0, '45:0'),
-  new Level(100, 50, 0, '30:0'),
-  new Level(200, 100, 0, '30:0'),
-  new Level(300, 150, 0, '30:0'),
-  new Level(400, 200, 50, '30:0'),
+  new Level(100, 50, 0, '45:0'),
+  new Level(200, 100, 0, '45:0'),
+  new Level(300, 150, 0, '45:0'),
+  new Level(400, 200, 50, '45:0'),
   new Level(600, 300, 100, '30:0'),
   new Level(1000, 500, 100, '30:0'),
   new Level(1400, 700, 200, '30:0'),
