@@ -32,6 +32,10 @@ const operations = [];
 const buyIn = 10000;
 const prizeCnt = 7;
 
+// Number of people at final table. When the [ftCnt]th player
+// is busted, there would be applause.
+const ftCnt = 9;
+
 var playerCnt = 27;
 var rebuyCnt = 0;
 var remainCnt = playerCnt;
@@ -90,7 +94,8 @@ function initDivs() {
   curBlindDiv = document.getElementById('div_cur_blind');
   remainCntDiv = document.getElementById('div_remain_cnt');
   // playerCntDiv = document.getElementById('div_player_cnt');
-  prizeCntDiv = document.getElementById('div_prize_cnt');
+  // prizeCntDiv = document.getElementById('div_prize_cnt');
+  rebuyCntDiv = document.getElementById('div_rebuy_cnt');
   curLevelDiv = document.getElementById('div_cur_level');
   aveChipDiv = document.getElementById('div_ave_chip');
   nextLevelDiv = document.getElementById('div_next_level');
@@ -151,7 +156,8 @@ function redraw() {
   curAntiDiv.innerText = cur.anti;
   curBlindDiv.innerText = cur.bb + '/' + cur.sb;
   remainCntDiv.innerText = remainCnt + '/' + playerCnt;
-  prizeCntDiv.innerText = prizeCnt;
+  //prizeCntDiv.innerText = prizeCnt;
+  rebuyCntDiv.innerText = rebuyCnt;
   curLevelDiv.innerText = levelIndex + 1;
   aveChipDiv.innerText = parseInt((playerCnt + rebuyCnt) * buyIn / remainCnt);
   if (isLastLevel()) {
@@ -232,7 +238,7 @@ function doPlus() {
 function doMinus() {
   if (remainCnt <= 1) return;
   remainCnt--;
-  if (remainCnt == 1) {
+  if (remainCnt == 1 || remainCnt == ftCnt-1) {
     new Audio('./resources/sound/applause.wav').play();
   }
   redraw();
@@ -310,6 +316,7 @@ var curBlindDiv;
 var curAntiDiv;
 var remainCntDiv;
 var prizeCntDiv;
+var rebuyCntDiv;
 var curLevelDiv;
 var aveChipDiv;
 var nextLevelDiv;
