@@ -41,6 +41,38 @@ var rebuyCnt = 0;
 var remainCnt = playerCnt;
 var paused = false;
 
+// For touchable devices, one single touch on the button area might trigger
+// two things:
+//  1. All buttons show up;
+//  2. One of the buttons gets clickes.
+// We think this is because one single touch will trigger more than one [event].
+// To tackle this, we apply a click protection: none of the buttons are
+// clickable within [click_threshold] milliseconds after the buttons show up.
+const click_threshold = 650;
+var click_protection_timestamp = 0;
+
+function timestampe_in_ms() {
+  return window.performance && window.performance.now &&
+          window.performance.timing &&
+          window.performance.timing.navigationStart ?
+      window.performance.now() + window.performance.timing.navigationStart :
+      Date.now();
+}
+
+function apply_click_protection() {
+  click_protection_timestamp = timestampe_in_ms();
+  console.log('click protection timestamp:'+click_protection_timestamp);
+}
+
+// Returns [true] if the buttons are clickable, otherwise, returns [false].
+function check_click_protection() {
+  var cur = timestampe_in_ms();
+  console.log('current timestamp:' + cur);
+  console.log('click protection timestamp:'+click_protection_timestamp);
+  if (cur - click_protection_timestamp < click_threshold) return false;
+  return true;
+}
+
 function refresh_every_second() {
   if (!paused) {
     time_elapse();
@@ -102,43 +134,54 @@ function initDivs() {
   pauseDiv = document.getElementById('div_pause');
 
   buttons['pause'] = document.getElementById('btn_pause');
-  buttons['pause'].onclick = doPause;
 
-  //buttons['plus'] = document.getElementById('btn_plus');
-  //buttons['plus'].onclick = doPlus;
+  // buttons['plus'] = document.getElementById('btn_plus');
 
   buttons['undo'] = document.getElementById('btn_undo');
-  buttons['undo'].onclick = doUndo;
 
   buttons['minus'] = document.getElementById('btn_minus');
-  buttons['minus'].onclick = doMinus;
 
   buttons['rebuy'] = document.getElementById('btn_rebuy');
-  buttons['rebuy'].onclick = doRebuy;
 
   buttons['speed_up'] = document.getElementById('btn_speed_up');
-  buttons['speed_up'].onclick = doSpeedUp;
 
   buttons['speed_down'] = document.getElementById('btn_speed_down');
-  buttons['speed_down'].onclick = doSpeedDown;
 
   buttonWrapperDiv = document.getElementById('button_wrapper');
   buttonWrapperDiv.onmouseenter = showButtons;
   buttonWrapperDiv.onmouseleave = hideButtons;
 
-  /*
-  // Workaround for touchable devices.
-  buttonWrapperDiv.onclick = showButtons;
-  document.onclick = function(e) {
-    console.log(e.target.className);
-    if (e.target.className != 'setting_button' && e.target != button_wrapper) {
-      hideButtons();
-    }
-  };
-  */
+  buttonWrapperDiv.onclick = function(e) {
+    console.log(e.target);
+    if (!check_click_protection()) return;
+    var button = e.target;
+    switch (button) {
+      case buttons['pause']:
+        doPause();
+        break;
+      case buttons['undo']:
+        doUndo();
+        break;
+      case buttons['minus']:
+        doMinus();
+        break;
+      case buttons['rebuy']:
+        doRebuy();
+        break;
+      case buttons['speed_up']:
+        doSpeedUp();
+        break;
+      case buttons['speed_down']:
+        doSpeedDown();
+        break;
+      default:
+        console.log('uncatch event' + e);
+    };
+  }
 }
 
 function showButtons() {
+  apply_click_protection();
   for (var key in buttons) {
     buttons[key].style.visibility = 'visible';
   }
@@ -156,7 +199,7 @@ function redraw() {
   curAntiDiv.innerText = cur.anti;
   curBlindDiv.innerText = cur.bb + '/' + cur.sb;
   remainCntDiv.innerText = remainCnt + '/' + playerCnt;
-  //prizeCntDiv.innerText = prizeCnt;
+  // prizeCntDiv.innerText = prizeCnt;
   rebuyCntDiv.innerText = rebuyCnt;
   curLevelDiv.innerText = levelIndex + 1;
   aveChipDiv.innerText = parseInt((playerCnt + rebuyCnt) * buyIn / remainCnt);
@@ -238,7 +281,7 @@ function doPlus() {
 function doMinus() {
   if (remainCnt <= 1) return;
   remainCnt--;
-  if (remainCnt == 1 || remainCnt == ftCnt-1) {
+  if (remainCnt == 1 || remainCnt == ftCnt - 1) {
     new Audio('./resources/sound/applause.wav').play();
   }
   redraw();
@@ -249,10 +292,10 @@ function doUndo() {
   if (operations.length == 0) return;
   var last = operations.pop();
   if (last == doPlus) {
-    remainCnt --;
-    playerCnt --;
+    remainCnt--;
+    playerCnt--;
   } else if (last == doMinus) {
-    remainCnt ++;
+    remainCnt++;
   } else if (last == doRebuy) {
     rebuyCnt--;
     remainCnt--;
