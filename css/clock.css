@@ -6,7 +6,7 @@
 	align-items: center;
 	color: white;
 	display: flex;
-	font-family: xingkai sc;
+	font-family: STXingkai, xingkai sc;
 	font-weight: bold;
 	margin-left: 26%;
 	width: 100%;
@@ -156,7 +156,6 @@
 #setting > #button_wrapper {
 	position: absolute;
 	margin: auto;
-	position: absolute;
 	display: flex;
 	flex-direction: column;
 	top: 0;
